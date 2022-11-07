@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -22,7 +23,8 @@ public class Ejercicio4 extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			VBox panel = new VBox();
+			VBox panel = new VBox(15);
+			panel.setPadding(new Insets(15));
 			
 			Label nombre = new Label ("Nombre");
 			TextField lbltxt = new TextField();
@@ -36,7 +38,7 @@ public class Ejercicio4 extends Application {
 			entrar.setOnAction(new EventHandler<ActionEvent>(){				
 				public void handle(ActionEvent event) {
 					String nombre = lbltxt.getText();
-					result.setText(nombre);
+					result.setText("Hola, bienvenid@"+nombre);
 				}
 				
 				
