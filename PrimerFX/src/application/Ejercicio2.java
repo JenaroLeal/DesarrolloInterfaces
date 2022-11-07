@@ -1,5 +1,6 @@
 package application;
-	
+
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,21 +15,25 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-public class Main extends Application {
-	@Override
+public class Ejercicio2 extends Application{
 	public void start(Stage primaryStage) {
 		try {
 			
+			BorderPane panel = new BorderPane();
 			
+			Rectangle centro = new Rectangle (300,300,Color.DARKBLUE);
+			Rectangle arriba = new Rectangle (400,50,Color.AQUA);
+			Rectangle abajo = new Rectangle (400,50,Color.AQUA);
+			Rectangle izquierda = new Rectangle (50,300,Color.WHITE);
+			Rectangle derecha = new Rectangle (50,300,Color.WHITE);
 			
-			StackPane panel = new StackPane();
+			panel.setCenter(centro);
+			panel.setTop(arriba);
+			panel.setBottom(abajo);
+			panel.setRight(derecha);
+			panel.setLeft(izquierda);
 			
-			Rectangle r1 = new Rectangle(400,400,Color.BLACK);
-			Rectangle r2 = new Rectangle(300,300,Color.AQUA);
-			Rectangle r3 = new Rectangle(200,200,Color.WHITE);
-			
-			panel.getChildren().addAll(r1,r2,r3);
+		
 			
 			
 			Scene scene = new Scene (panel,400,400);
@@ -46,4 +51,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
