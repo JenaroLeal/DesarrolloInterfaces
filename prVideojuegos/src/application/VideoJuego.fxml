@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VideoJuegoController">
    <children>
       <MenuBar layoutX="-11.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="613.0">
@@ -53,7 +52,7 @@
                   <TextField fx:id="txtPrecio" layoutX="106.0" layoutY="176.0" />
                   <ChoiceBox fx:id="opcionConsola" layoutX="106.0" layoutY="216.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="opcionPegi" layoutX="106.0" layoutY="256.0" prefWidth="150.0" />
-                  <Button fx:id="btnAñadir" layoutX="105.0" layoutY="308.0" mnemonicParsing="false" text="Añadir" />
+                  <Button fx:id="btnAñadir" layoutX="105.0" layoutY="308.0" mnemonicParsing="false" onAction="#añadirJuego" text="Añadir" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="310.0">
