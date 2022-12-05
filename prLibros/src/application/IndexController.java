@@ -1,5 +1,10 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,7 +49,7 @@ public class IndexController {
 
 	@FXML
 	private Button btnAnadir;
-	
+
 	@FXML
 	private Button btnBorrar;
 
@@ -63,8 +68,38 @@ public class IndexController {
 		columnEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
 		columnAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
 		columnPaginas.setCellValueFactory(new PropertyValueFactory<>("paginas"));
+		
+		ObservableList listaLibrosBD = getLibrosBD();
 
-		tableLibros.setItems(listaLibros);
+		tableLibros.setItems(listaLibrosBD);
+	}
+
+	private ObservableList<Libro> getLibrosBD() {
+
+		ObservableList<Libro> listaLibrosBD = FXCollections.observableArrayList();
+
+		DatabaseConnection dbConnection = new DatabaseConnection();
+		Connection connection = dbConnection.getConnection();
+
+		String query = "select * from libros";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Libro libro = new Libro(rs.getString("titulo"), rs.getString("editorial"), rs.getString("autor"),
+						rs.getInt("paginas"));
+
+				listaLibrosBD.add(libro);
+			}
+
+			connection.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return listaLibrosBD;
 	}
 
 	@FXML
@@ -109,16 +144,18 @@ public class IndexController {
 			return false;
 		}
 	}
+
 	public void borrarLibro(ActionEvent event) {
 		int indiceSeleccionado = tableLibros.getSelectionModel().getSelectedIndex();
-		if(indiceSeleccionado<0) {
+		if (indiceSeleccionado < 0) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Error al borrar");
 			alerta.setHeaderText("No se puede borrar");
 			alerta.setContentText("Por favor elige una fila");
 			alerta.showAndWait();
-		}else {
-		tableLibros.getItems().remove(indiceSeleccionado);
+		} else {
+			tableLibros.getItems().remove(indiceSeleccionado);
+			tableLibros.getSelectionModel().clearSelection();
 		}
 	}
 }
