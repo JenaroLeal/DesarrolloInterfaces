@@ -70,7 +70,8 @@ public class IndexController {
 		columnPaginas.setCellValueFactory(new PropertyValueFactory<>("paginas"));
 		
 		ObservableList listaLibrosBD = getLibrosBD();
-
+		
+		tableLibros.setItems(listaLibros);
 		tableLibros.setItems(listaLibrosBD);
 	}
 
@@ -123,6 +124,29 @@ public class IndexController {
 				cbEditorial.getSelectionModel().clearSelection();
 				txtAutor.clear();
 				txtPaginas.clear();
+				
+				
+				DatabaseConnection dbConnection = new DatabaseConnection();
+				Connection connection = dbConnection.getConnection();
+				
+				String query = "insert into libros ( titulo, editorial, autor, paginas)"+"values (?,?,?,?)";
+				
+				try {
+					PreparedStatement ps = connection.prepareStatement(query);
+					
+					ps.setString(1, l.getTitulo());
+					ps.setString(2, l.getEditorial());
+					ps.setString(3, l.getAutor());
+					ps.setInt(4, l.getPaginas());
+					ps.executeUpdate();
+					connection.close();
+					ObservableList listaLibrosBD = getLibrosBD();
+					tableLibros.setItems(listaLibrosBD);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else {
 				Alert alerta = new Alert(AlertType.ERROR);
