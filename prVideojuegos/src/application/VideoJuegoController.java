@@ -1,5 +1,10 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,8 +57,40 @@ public class VideoJuegoController {
 		columConsola.setCellValueFactory(new PropertyValueFactory<>("consola"));
 		columPegi.setCellValueFactory(new PropertyValueFactory<>("pegi"));
 
+		ObservableList listaVideojuegosBD=getVideojuegosBD();
+		
+		
 		tableJuego.setItems(listaVideojuegos);
+		tableJuego.setItems(listaVideojuegosBD);
 
+	}
+	
+	
+	private ObservableList<Videojuego> getVideojuegosBD(){
+		
+		ObservableList<Videojuego> listaVideojuegosBD = FXCollections.observableArrayList();
+		DatabaseConnection dbConnection = new DatabaseConnection();
+		Connection connection = dbConnection.getConnection();
+		
+		String query ="select * from videojuegos";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Videojuego v = new Videojuego(rs.getString("nombre"),rs.getInt("precio"),rs.getString("consola"),rs.getString("pegi"));
+				listaVideojuegosBD.add(v);
+			}
+			connection.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		return listaVideojuegosBD;
+		
 	}
 
 	@FXML
@@ -76,6 +113,28 @@ public class VideoJuegoController {
 				txtPrecio.clear();
 				opcionConsola.getSelectionModel().clearSelection();
 				opcionPegi.getSelectionModel().clearSelection();
+				
+				DatabaseConnection dbConnection = new DatabaseConnection();
+				Connection connection = dbConnection.getConnection();
+				
+				String query = "insert into videojuegos (nombre, precio, consola, pegi)"+"values(?,?,?,?)";
+				
+				try {
+					PreparedStatement ps = connection.prepareStatement(query);
+					ps.setString(1, v.getNombre());
+					ps.setInt(2, v.getPrecio());
+					ps.setString(3, v.getConsola());
+					ps.setString(4, v.getPegi());
+					ps.executeUpdate();
+					connection.close();
+					ObservableList listaVideojuegosBD = getVideojuegosBD();
+					tableJuego.setItems(listaVideojuegosBD);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	
 			} else {
 				Alert alerta = new Alert(AlertType.ERROR);
 				alerta.setTitle("Error al insertar");
