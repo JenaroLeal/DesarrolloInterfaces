@@ -1,1 +1,37 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#lblNombre{
+	-fx-background-color: white;
+	
+}
+#lblPrecio{
+	-fx-background-color: white;
+}
+#lblConsola{
+	-fx-background-color: white;
+}
+#lblPegi{
+	-fx-background-color: white;
+}
+#lblVideojuego{
+	-fx-background-color: white;
+}
+#lblNuevo{
+	-fx-background-color: white;
+}
+#panelJuego{
+	-fx-background-color: RoyalBlue;
+}
+.button{
+	-fx-background-color: Chartreuse;
+}
+#panelTabla{
+	-fx-background-color: RoyalBlue;
+}
+#tabla{
+	-fx-background-color: SkyBlue;
+}
+#panelSuperior{
+	-fx-background-color: Seashell;
+}
+.label{
+	-fx-font-size: 15;
+}

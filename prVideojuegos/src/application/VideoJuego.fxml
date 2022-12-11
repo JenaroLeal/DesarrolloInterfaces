@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VideoJuegoController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VideoJuegoController">
    <children>
-      <MenuBar layoutX="-11.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="613.0">
+      <MenuBar id="panelSuperior" layoutX="-11.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="613.0">
         <menus>
           <Menu mnemonicParsing="false" text="Inicio">
             <items>
@@ -37,32 +37,33 @@
       </MenuBar>
       <SplitPane dividerPositions="0.5" layoutX="-5.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="369.0" prefWidth="606.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane id="panelJuego" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label contentDisplay="CENTER" layoutX="75.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="149.0" text="Nuevo videojuego" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="50.0">
+                  <Label id="lblNuevo" contentDisplay="CENTER" layoutX="75.0" layoutY="42.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="149.0" text="Nuevo videojuego" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="42.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="100.0" text="Nombre" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
-                  <Label layoutX="6.0" layoutY="130.0" text="Precio" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
-                  <Label layoutX="22.0" layoutY="226.0" text="Consola" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0" />
-                  <Label layoutX="22.0" layoutY="257.0" text="PEGI" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0" />
+                  <Label id="lblNombre" layoutX="14.0" layoutY="100.0" text="Nombre" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
+                  <Label id="lblPrecio" layoutX="6.0" layoutY="130.0" text="Precio" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
+                  <Label id="lblConsola" layoutX="22.0" layoutY="226.0" text="Consola" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0" />
+                  <Label id="lblPegi" layoutX="22.0" layoutY="257.0" text="PEGI" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0" />
                   <TextField fx:id="txtNombre" layoutX="105.0" layoutY="136.0" />
                   <TextField fx:id="txtPrecio" layoutX="106.0" layoutY="176.0" />
                   <ChoiceBox fx:id="opcionConsola" layoutX="106.0" layoutY="216.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="opcionPegi" layoutX="106.0" layoutY="256.0" prefWidth="150.0" />
                   <Button fx:id="btnAñadir" layoutX="105.0" layoutY="308.0" mnemonicParsing="false" onAction="#añadirJuego" text="Añadir" />
+                  <Button fx:id="btnBorrar" layoutX="173.0" layoutY="308.0" mnemonicParsing="false" onAction="#borrarVideojuego" text="Borrar" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="310.0">
+          <AnchorPane id="panelTabla" minHeight="0.0" minWidth="0.0" prefHeight="368.0" prefWidth="310.0">
                <children>
-                  <Label layoutX="114.0" layoutY="58.0" text="Videojuegos" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0">
+                  <Label id="lblVideojuego" layoutX="98.0" layoutY="41.0" text="Videojuegos" AnchorPane.leftAnchor="98.0" AnchorPane.topAnchor="41.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tableJuego" layoutX="1.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="261.0" prefWidth="299.0">
+                  <TableView id="tabla" fx:id="tableJuego" layoutX="1.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="261.0" prefWidth="299.0">
                     <columns>
                       <TableColumn fx:id="columNombre" prefWidth="75.0" text="Nombre" />
                       <TableColumn fx:id="columPrecio" prefWidth="75.0" text="Precio" />

@@ -40,6 +40,8 @@ public class VideoJuegoController {
 	private TableColumn<Videojuego, String> columPegi;
 	@FXML
 	private Button btnAñadir;
+	@FXML
+	private Button btnBorrar;
 
 	private ObservableList<Videojuego> listaVideojuegos = FXCollections
 			.observableArrayList(new Videojuego("Fifa 23", 49, "PSP5", "PEGI 3"));
