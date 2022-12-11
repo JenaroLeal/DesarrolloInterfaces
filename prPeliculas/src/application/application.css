@@ -1,1 +1,12 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.button{
+	-fx-background-color: Skyblue;
+}
+#panelIzq, #panelDrc{
+	-fx-background-color: PowderBlue;
+}
+#tabla{
+	-fx-background-color: SteelBlue;
+}
+#nuevaPeli, #pelicula{
+	-fx-background-color: white;
+}
