@@ -44,7 +44,7 @@ public class VideoJuegoController {
 	private Button btnBorrar;
 
 	private ObservableList<Videojuego> listaVideojuegos = FXCollections
-			.observableArrayList(new Videojuego("Fifa 23", 49, "PSP5", "PEGI 3"));
+			.observableArrayList();
 
 	public ObservableList<String> consolas = FXCollections.observableArrayList("PSP5", "PSP4", "Nintendo", "XBOX");
 	public ObservableList<String> pegis = FXCollections.observableArrayList("PEGI 3", "PEGI 7", "PEGI 12", "PEGI 16",
@@ -52,6 +52,7 @@ public class VideoJuegoController {
 
 	@FXML
 	private void initialize() {
+		
 		opcionConsola.setItems(consolas);
 		opcionPegi.setItems(pegis);
 		columNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -80,7 +81,7 @@ public class VideoJuegoController {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Videojuego v = new Videojuego(rs.getString("nombre"),rs.getInt("precio"),rs.getString("consola"),rs.getString("pegi"));
+				Videojuego v = new Videojuego(rs.getInt("id"),rs.getString("nombre"),rs.getInt("precio"),rs.getString("consola"),rs.getString("pegi"));
 				listaVideojuegosBD.add(v);
 			}
 			connection.close();
@@ -165,7 +166,29 @@ public class VideoJuegoController {
 			alerta.setContentText("Por favor elige una fila");
 			alerta.showAndWait();
 		}else {
-		tableJuego.getItems().remove(indiceSeleccionado);
+			DatabaseConnection dbConnection = new DatabaseConnection();
+			Connection connection = dbConnection.getConnection();
+			
+			try {
+				
+				String query = "Delete from videojuegos where id = ?";
+				PreparedStatement ps = connection.prepareStatement(query);
+				Videojuego videojuego = tableJuego.getSelectionModel().getSelectedItem();
+				ps.setInt(1, videojuego.getId());
+				ps.executeUpdate();
+				
+				tableJuego.getSelectionModel().clearSelection();
+				ObservableList listaJuegosBD=getVideojuegosBD();
+				tableJuego.setItems(listaJuegosBD);
+				connection.close();
+				
+				
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
 		}
 	}
 

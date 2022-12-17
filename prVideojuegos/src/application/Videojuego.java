@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Videojuego {
 	
+	private int id;
 	private SimpleStringProperty nombre;
 	private SimpleIntegerProperty precio;
 	private SimpleStringProperty consola;
@@ -19,6 +20,26 @@ public class Videojuego {
 		this.consola = new SimpleStringProperty(consola);
 		this.pegi = new SimpleStringProperty(pegi);
 		
+	}
+	
+	public Videojuego(int id,String nombre, int precio, String consola,
+			String pegi) {
+		
+		super();
+		this.id=id;
+		this.nombre = new SimpleStringProperty(nombre);
+		this.precio = new SimpleIntegerProperty(precio);
+		this.consola = new SimpleStringProperty(consola);
+		this.pegi = new SimpleStringProperty(pegi);
+		
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId (int id) {
+		this.id=id;
 	}
 
 
