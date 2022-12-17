@@ -54,7 +54,7 @@ public class IndexController {
 	private Button btnBorrar;
 
 	private ObservableList<Libro> listaLibros = FXCollections
-			.observableArrayList(new Libro("La Biblia", "Planeta", "Jesús", 500));
+			.observableArrayList();
 
 	public ObservableList<String> listaEditoriales = FXCollections.observableArrayList("Planeta", "Altaya", "Kadokawa",
 			"Penguin Libros");
@@ -88,7 +88,7 @@ public class IndexController {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Libro libro = new Libro(rs.getString("titulo"), rs.getString("editorial"), rs.getString("autor"),
+				Libro libro = new Libro(rs.getInt("id"),rs.getString("titulo"), rs.getString("editorial"), rs.getString("autor"),
 						rs.getInt("paginas"));
 
 				listaLibrosBD.add(libro);
@@ -178,8 +178,26 @@ public class IndexController {
 			alerta.setContentText("Por favor elige una fila");
 			alerta.showAndWait();
 		} else {
-			tableLibros.getItems().remove(indiceSeleccionado);
-			tableLibros.getSelectionModel().clearSelection();
+			//tableLibros.getItems().remove(indiceSeleccionado);
+			
+			DatabaseConnection dbConnection = new DatabaseConnection();
+			Connection connection = dbConnection.getConnection();
+						
+			try {
+				String query = "Delete from libros where id = ?";
+				PreparedStatement ps = connection.prepareStatement(query);
+				Libro libro = tableLibros.getSelectionModel().getSelectedItem();
+				ps.setInt(1, libro.getId());
+				ps.executeUpdate();
+				
+				tableLibros.getSelectionModel().clearSelection();
+				ObservableList listaLibrosBD= getLibrosBD();
+				tableLibros.setItems(listaLibrosBD);
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
