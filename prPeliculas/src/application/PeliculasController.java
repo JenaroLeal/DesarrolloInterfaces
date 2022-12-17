@@ -44,7 +44,7 @@ public class PeliculasController {
 	private Button btnBorrar;
 
 	private ObservableList<Pelicula> listaPeliculas = FXCollections
-			.observableArrayList(new Pelicula("Tarzán", 120, "Aventura", "+3"));
+			.observableArrayList();
 	public ObservableList<String> generos = FXCollections.observableArrayList("Accion", "Aventura", "Drama", "Comedia",
 			"Sci-Fi");
 	public ObservableList<String> pegis = FXCollections.observableArrayList("+3", "+7", "+12", "+18");
@@ -75,7 +75,7 @@ public class PeliculasController {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Pelicula p = new Pelicula(rs.getString("nombre"), rs.getInt("duracion"), rs.getString("genero"),
+				Pelicula p = new Pelicula(rs.getInt("id"),rs.getString("nombre"), rs.getInt("duracion"), rs.getString("genero"),
 						rs.getString("pegi"));
 				listaPeliculasBD.add(p);
 			}
@@ -158,7 +158,24 @@ public class PeliculasController {
 			alerta.setContentText("Por favor elige una fila");
 			alerta.showAndWait();
 		} else {
-			tablePeliculas.getItems().remove(indice);
+			DatabaseConnection dbConnection = new DatabaseConnection();
+			Connection connection = dbConnection.getConnection();
+			try {
+				String query = "Delete from peliculas where id= ?";
+				PreparedStatement ps = connection.prepareStatement(query);
+				Pelicula p = tablePeliculas.getSelectionModel().getSelectedItem();
+				ps.setInt(1, p.getId());
+				ps.executeUpdate();
+				
+				tablePeliculas.getSelectionModel().clearSelection();
+				ObservableList listaPeliculasBD = getPeliculasBD();
+				tablePeliculas.setItems(listaPeliculasBD);
+				connection.close();
+				
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

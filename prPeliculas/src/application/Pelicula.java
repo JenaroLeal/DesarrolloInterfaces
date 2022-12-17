@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Pelicula {
 	
+	private int id;
 	private SimpleStringProperty nombre;
 	private SimpleIntegerProperty duracion;
 	private SimpleStringProperty genero;
@@ -23,11 +24,32 @@ public class Pelicula {
 		this.genero=new SimpleStringProperty(genero);
 		this.pegi=new SimpleStringProperty(pegi);
 	}
+	
+	public Pelicula (int id,String nombre, int duracion, String genero, String pegi) {
+		super();
+		this.id=id;
+		this.nombre=new SimpleStringProperty(nombre);
+		this.duracion=new SimpleIntegerProperty(duracion);
+		this.genero=new SimpleStringProperty(genero);
+		this.pegi=new SimpleStringProperty(pegi);
+	}
 
 
 	public String getNombre() {
 		return nombre.get();
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 
 	public void setNombre(String nombre) {
